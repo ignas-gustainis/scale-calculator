@@ -15,8 +15,15 @@ proposers = participants * proposer_perc // 100
 
 def calc_round_duration():
     time_to_download_model = parameter_size / slowest_bandwidth
-    proposer_duration = time_to_download_model + time_to_train + block_time
-    voter_duration = time_to_download_model * proposers + time_to_evaluate + block_time
+    proposer_duration = (
+        time_to_download_model + time_to_train + block_time + time_to_download_model
+    )
+    voter_duration = (
+        time_to_download_model * proposers
+        + time_to_evaluate
+        + block_time
+        + time_to_download_model
+    )
     return proposer_duration + voter_duration
 
 
